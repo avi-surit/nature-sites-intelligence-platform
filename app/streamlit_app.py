@@ -1038,7 +1038,7 @@ st.markdown(
 tab_overview, tab_sites, tab_topics, tab_demo = st.tabs(
     [
         "Overview",
-        "Site Deep Dive",
+        "Site Analysis",
         "Topic Analysis",
         "Try It Yourself",
     ]
