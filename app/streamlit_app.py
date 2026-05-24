@@ -297,7 +297,6 @@ site_topic_df, site_stats_df, topic_stats_df = load_data()
 # Helpers
 # ============================================================
 
-
 def priority_context_text(row, prefix: str, fallback: str = "Operational triage score"):
     rank = row.get(f"{prefix}_rank")
     scope_n = row.get(f"{prefix}_scope_n")
@@ -308,12 +307,15 @@ def priority_context_text(row, prefix: str, fallback: str = "Operational triage 
     if pd.isna(rank) or pd.isna(scope_n) or pd.isna(pct_value):
         return fallback
 
-    text = f"Rank {int(rank)}/{int(scope_n)} \n{100 * float(pct_value):.0f}% severity percentile\n"
+    lines = [
+        f"Rank {int(rank)}/{int(scope_n)}",
+        f"{100 * float(pct_value):.0f}% severity percentile",
+    ]
 
     if not pd.isna(min_score) and not pd.isna(max_score):
-        text += f"observed range {float(min_score):.2f}–{float(max_score):.2f}"
+        lines.append(f"Observed range {float(min_score):.2f}–{float(max_score):.2f}")
 
-    return text
+    return "\n".join(lines)
 
 METRIC_TOOLTIPS = {
     "Sites in view": (
@@ -573,12 +575,17 @@ def metric_card(title, value, sub="", tooltip=None):
     tooltip_text = tooltip or METRIC_TOOLTIPS.get(title, "")
     info_icon = " ⓘ" if tooltip_text else ""
 
+    safe_title = escape(str(title))
+    safe_value = escape(str(value))
+    safe_sub = escape(str(sub)).replace("\n", "<br>")
+    safe_tooltip = escape(str(tooltip_text))
+
     st.markdown(
         f"""
-        <div class="metric-card" title="{escape(tooltip_text)}">
-            <div class="metric-title">{escape(title)}{info_icon}</div>
-            <div class="metric-value">{escape(str(value))}</div>
-            <div class="metric-sub">{escape(str(sub))}</div>
+        <div class="metric-card" title="{safe_tooltip}">
+            <div class="metric-title">{safe_title}{info_icon}</div>
+            <div class="metric-value">{safe_value}</div>
+            <div class="metric-sub">{safe_sub}</div>
         </div>
         """,
         unsafe_allow_html=True,
