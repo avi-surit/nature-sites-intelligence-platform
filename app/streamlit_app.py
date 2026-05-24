@@ -433,6 +433,25 @@ def number(x):
     return f"{int(x):,}"
 
 
+
+def apply_plot_readability(fig):
+    fig.update_layout(
+        font=dict(size=14),
+        xaxis=dict(
+            tickfont=dict(size=14),
+            title_font=dict(size=15),
+        ),
+        yaxis=dict(
+            tickfont=dict(size=14),
+            title_font=dict(size=15),
+        ),
+        legend=dict(
+            font=dict(size=13),
+            title_font=dict(size=13),
+        ),
+    )
+    return fig
+
 def metric_card(title, value, sub="", tooltip=None):
     tooltip_text = tooltip or METRIC_TOOLTIPS.get(title, "")
     info_icon = " ⓘ" if tooltip_text else ""
@@ -876,7 +895,7 @@ st.markdown(
     <div class="hero">
         <h1>Nature Sites Intelligence Platform</h1>
         <p>
-            AI-assisted analysis of visitor feedback across Israeli nature and heritage sites.
+            AI-assisted analysis of visitor feedback across Israeli nature and heritage sites.<br>
             The dashboard identifies recurring operational topics, sentiment patterns, and site-level pain points
             from processed review segments.
         </p>
@@ -886,106 +905,6 @@ st.markdown(
 )
 
 
-# ============================================================
-# Sidebar filters
-# ============================================================
-
-st.sidebar.title("Filters")
-
-all_sites = sorted(site_topic_df["site_name_en"].dropna().unique().tolist())
-all_topics = sorted(site_topic_df["topic_label_en"].dropna().unique().tolist())
-
-selected_sites = st.sidebar.multiselect(
-    "Sites",
-    options=all_sites,
-    default=[],
-    placeholder="All sites",
-)
-
-selected_topics = st.sidebar.multiselect(
-    "Topics",
-    options=all_topics,
-    default=[],
-    placeholder="All topics",
-)
-
-min_mentions = st.sidebar.slider(
-    "Minimum topic mentions",
-    min_value=1,
-    max_value=max(1, int(site_topic_df["total_topic_reviews"].max())),
-    value=1,
-)
-
-
-
-top_n = st.sidebar.slider(
-    "Rows to show in rankings",
-    min_value=5,
-    max_value=50,
-    value=20,
-    step=5,
-)
-
-st.sidebar.markdown("---")
-
-st.sidebar.markdown(
-    """
-    **Data note**
-
-    The public dashboard uses aggregated statistics only.
-    Raw review text is not included in the public data files.
-    """
-)
-
-
-# ============================================================
-# Apply filters
-# ============================================================
-
-filtered_site_topic = site_topic_df.copy()
-
-if selected_sites:
-    filtered_site_topic = filtered_site_topic[
-        filtered_site_topic["site_name_en"].isin(selected_sites)
-    ]
-
-if selected_topics:
-    filtered_site_topic = filtered_site_topic[
-        filtered_site_topic["topic_label_en"].isin(selected_topics)
-    ]
-
-filtered_site_topic = filtered_site_topic[
-    filtered_site_topic["total_topic_reviews"] >= min_mentions
-].copy()
-
-filtered_site_stats = site_stats_df.copy()
-
-if selected_sites:
-    filtered_site_stats = filtered_site_stats[
-        filtered_site_stats["site_name_en"].isin(selected_sites)
-    ]
-
-filtered_topic_stats = topic_stats_df.copy()
-
-if selected_topics:
-    filtered_topic_stats = filtered_topic_stats[
-        filtered_topic_stats["topic_label_en"].isin(selected_topics)
-    ]
-
-
-# ============================================================
-# Global KPI values
-# ============================================================
-
-total_sites = filtered_site_topic["site_name_en"].nunique()
-total_topics = filtered_site_topic["topic_id"].nunique()
-
-negative_mentions = int(filtered_site_topic["negative"].sum()) if "negative" in filtered_site_topic else 0
-neutral_mentions = int(filtered_site_topic["neutral"].sum()) if "neutral" in filtered_site_topic else 0
-positive_mentions = int(filtered_site_topic["positive"].sum()) if "positive" in filtered_site_topic else 0
-
-total_mentions = negative_mentions + neutral_mentions + positive_mentions
-negative_rate = negative_mentions / total_mentions if total_mentions else 0
 
 
 # ============================================================
@@ -1006,6 +925,79 @@ tab_overview, tab_sites, tab_topics, tab_demo = st.tabs(
 # ============================================================
 
 with tab_overview:
+
+    st.markdown('<div class="section-title">Overview Filters</div>', unsafe_allow_html=True)
+
+    all_sites = sorted(site_topic_df["site_name_en"].dropna().unique().tolist())
+    all_topics = sorted(site_topic_df["topic_label_en"].dropna().unique().tolist())
+
+    f1, f2 = st.columns(2)
+
+    with f1:
+        selected_sites = st.multiselect(
+            "Sites",
+            options=all_sites,
+            default=[],
+            placeholder="All sites",
+            key="overview_selected_sites",
+        )
+
+    with f2:
+        selected_topics = st.multiselect(
+            "Topics",
+            options=all_topics,
+            default=[],
+            placeholder="All topics",
+            key="overview_selected_topics",
+        )
+
+    f3, f4 = st.columns(2)
+
+    with f3:
+        min_mentions = st.slider(
+            "Minimum topic mentions",
+            min_value=1,
+            max_value=max(1, int(site_topic_df["total_topic_reviews"].max())),
+            value=1,
+            key="overview_min_mentions",
+        )
+
+    with f4:
+        top_n = st.slider(
+            "Rows to show in rankings",
+            min_value=5,
+            max_value=50,
+            value=20,
+            step=5,
+            key="overview_top_n",
+        )
+
+    filtered_site_topic = site_topic_df.copy()
+
+    if selected_sites:
+        filtered_site_topic = filtered_site_topic[
+            filtered_site_topic["site_name_en"].isin(selected_sites)
+        ]
+
+    if selected_topics:
+        filtered_site_topic = filtered_site_topic[
+            filtered_site_topic["topic_label_en"].isin(selected_topics)
+        ]
+
+    filtered_site_topic = filtered_site_topic[
+        filtered_site_topic["total_topic_reviews"] >= min_mentions
+    ].copy()
+
+    total_sites = filtered_site_topic["site_name_en"].nunique()
+    total_topics = filtered_site_topic["topic_id"].nunique()
+
+    negative_mentions = int(filtered_site_topic["negative"].sum()) if "negative" in filtered_site_topic else 0
+    neutral_mentions = int(filtered_site_topic["neutral"].sum()) if "neutral" in filtered_site_topic else 0
+    positive_mentions = int(filtered_site_topic["positive"].sum()) if "positive" in filtered_site_topic else 0
+
+    total_mentions = negative_mentions + neutral_mentions + positive_mentions
+    negative_rate = negative_mentions / total_mentions if total_mentions else 0
+
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
@@ -1113,7 +1105,7 @@ with tab_overview:
             rangemode="tozero",
         )
         
-        
+        fig = apply_plot_readability(fig)
         st.plotly_chart(fig, use_container_width=True)
 
         
@@ -1173,7 +1165,7 @@ with tab_overview:
         if sort_metric in ["negative", "total_topic_reviews"]:
             fig.update_xaxes(tickformat=",d")
         
-
+        fig = apply_plot_readability(fig)
         st.plotly_chart(fig, use_container_width=True)
 
         table_cols = [
@@ -1214,7 +1206,7 @@ with tab_overview:
 )
 
     fig.update_layout(height=420, margin=dict(l=20, r=20, t=55, b=20))
-    
+    fig = apply_plot_readability(fig)
     st.plotly_chart(fig, use_container_width=True)
 
 
@@ -1227,13 +1219,7 @@ with tab_sites:
 
     site_options = sorted(site_topic_df["site_name_en"].dropna().unique().tolist())
 
-    default_site = (
-        selected_sites[0]
-        if selected_sites
-        else site_options[0]
-        if site_options
-        else None
-    )
+    default_site = site_options[0] if site_options else None
 
     selected_site = st.selectbox(
         "Choose a site",
@@ -1311,7 +1297,7 @@ with tab_sites:
         )
 
         fig.update_xaxes(tickformat=",d", rangemode="tozero")
-       
+        fig = apply_plot_readability(fig)
         st.plotly_chart(fig, use_container_width=True)
 
        
@@ -1356,12 +1342,10 @@ with tab_topics:
     topic_options = sorted(site_topic_df["topic_label_en"].dropna().unique().tolist())
 
     default_topic = (
-        selected_topics[0]
-        if selected_topics
-        else "Crowding"
-        if "Crowding" in topic_options
-        else topic_options[0]
-    )
+    "Crowding"
+    if "Crowding" in topic_options
+    else topic_options[0]
+        )   
 
     selected_topic_for_analysis = st.selectbox(
         "Choose a topic",
@@ -1451,7 +1435,8 @@ with tab_topics:
             xaxis_title="Priority score",
             yaxis_title="Site",
         )
-
+        
+        fig = apply_plot_readability(fig)
         st.plotly_chart(fig, use_container_width=True)
 
         topic_site_long = sentiment_long_format(
@@ -1485,6 +1470,7 @@ with tab_topics:
         )
 
         fig.update_yaxes(tickformat=",d", rangemode="tozero")
+        fig = apply_plot_readability(fig)
         st.plotly_chart(fig, use_container_width=True)
 
         
@@ -1675,7 +1661,7 @@ with tab_demo:
                     n_categories=sentiment_counts["sentiment"].nunique(),
                     grouped=False,
                 )
-
+                fig = apply_plot_readability(fig)
                 st.plotly_chart(fig, use_container_width=True)
 
             actions = live_result.get("recommended_actions", [])
