@@ -1,0 +1,6 @@
+streamlit
+starlette
+pandas
+pyarrow
+plotly
+openai
