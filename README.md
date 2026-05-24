@@ -68,22 +68,21 @@ The historical dataset was processed using a batch pipeline:
 
 ### Negative Share
 
-```math
-\frac{negative}{negative + neutral + positive}
-```
+
+$$\frac{\text{negative}}{\text{negative} + \text{neutral} + \text{positive}}$$
 
 Represents the share of negative sentiment mentions within a selected site/topic scope.
 
 ### Net Sentiment Score
 
-$$\frac{positive - negative}{negative + neutral + positive}$$
+$$\frac{positive - \text{negative}}{\text{negative} + \text{neutral} + \text{positive}}$$
 
 Range: -1 to 1.
 Higher values indicate more positive sentiment concentration. Lower values indicate more negative concentration.
 
 ### Priority Score
 
-$$\log(1 + \text{negative}) \times negative_rate$$
+$$\log(1 + \text{negative}) \times \text{negative rate}$$
 
 Used as an operational triage metric. It combines complaint volume with the concentration of negative feedback, so large sites do not dominate rankings purely because they receive more reviews.
 
