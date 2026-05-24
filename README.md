@@ -76,18 +76,14 @@ Represents the share of negative sentiment mentions within a selected site/topic
 
 ### Net Sentiment Score
 
-```text
-(positive - negative) / (negative + neutral + positive)
-```
+$$\frac{positive - negative}{negative + neutral + positive}$$
 
 Range: -1 to 1.
 Higher values indicate more positive sentiment concentration. Lower values indicate more negative concentration.
 
 ### Priority Score
 
-```text
-log(1 + negative) × negative_rate
-```
+$$\log(1 + \text{negative}) \times negative_rate$$
 
 Used as an operational triage metric. It combines complaint volume with the concentration of negative feedback, so large sites do not dominate rankings purely because they receive more reviews.
 
