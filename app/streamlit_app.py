@@ -197,6 +197,67 @@ st.markdown(
 # Data loading
 # ============================================================
 
+def add_empirical_priority_context(df: pd.DataFrame, score_col: str = "priority_score", prefix: str = "priority"):
+    """
+    Adds empirical rank/percentile/range columns for priority_score.
+
+    Rank:
+        1 = highest priority / most urgent
+
+    Severity percentile:
+        1.0 = highest observed score in the comparison group
+        0.0/low = low observed score
+    """
+    df = df.copy()
+
+    if score_col not in df.columns or df.empty:
+        return df
+
+    valid_scores = df[score_col].dropna()
+
+    if valid_scores.empty:
+        df[f"{prefix}_rank"] = pd.NA
+        df[f"{prefix}_scope_n"] = 0
+        df[f"{prefix}_severity_percentile"] = pd.NA
+        df[f"{prefix}_min"] = pd.NA
+        df[f"{prefix}_max"] = pd.NA
+        df[f"{prefix}_rank_label"] = "No priority data"
+        return df
+
+    scope_n = len(valid_scores)
+    min_score = float(valid_scores.min())
+    max_score = float(valid_scores.max())
+
+    df[f"{prefix}_rank"] = df[score_col].rank(
+        method="min",
+        ascending=False,
+    ).astype("Int64")
+
+    df[f"{prefix}_scope_n"] = scope_n
+
+    df[f"{prefix}_severity_percentile"] = df[score_col].rank(
+        method="max",
+        ascending=True,
+        pct=True,
+    )
+
+    df[f"{prefix}_min"] = min_score
+    df[f"{prefix}_max"] = max_score
+
+    def make_label(row):
+        rank = row.get(f"{prefix}_rank")
+        pct_value = row.get(f"{prefix}_severity_percentile")
+
+        if pd.isna(rank) or pd.isna(pct_value):
+            return "No priority data"
+
+        return f"Rank {int(rank)} / {scope_n} · {100 * float(pct_value):.0f}% severity percentile"
+
+    df[f"{prefix}_rank_label"] = df.apply(make_label, axis=1)
+
+    return df
+
+
 @st.cache_data(show_spinner=False)
 def load_data():
     site_topic = pd.read_parquet(SITE_TOPIC_PATH)
@@ -208,6 +269,24 @@ def load_data():
             if col in df.columns:
                 df[col] = df[col].fillna(0).astype(int)
 
+    site_stats = add_empirical_priority_context(
+        site_stats,
+        score_col="priority_score",
+        prefix="site_priority",
+    )
+
+    topic_stats = add_empirical_priority_context(
+        topic_stats,
+        score_col="priority_score",
+        prefix="topic_priority",
+    )
+
+    site_topic = add_empirical_priority_context(
+        site_topic,
+        score_col="priority_score",
+        prefix="global_site_topic_priority",
+    )
+
     return site_topic, site_stats, topic_stats
 
 
@@ -217,6 +296,24 @@ site_topic_df, site_stats_df, topic_stats_df = load_data()
 # ============================================================
 # Helpers
 # ============================================================
+
+
+def priority_context_text(row, prefix: str, fallback: str = "Operational triage score"):
+    rank = row.get(f"{prefix}_rank")
+    scope_n = row.get(f"{prefix}_scope_n")
+    pct_value = row.get(f"{prefix}_severity_percentile")
+    min_score = row.get(f"{prefix}_min")
+    max_score = row.get(f"{prefix}_max")
+
+    if pd.isna(rank) or pd.isna(scope_n) or pd.isna(pct_value):
+        return fallback
+
+    text = f"Rank {int(rank)}/{int(scope_n)} · {100 * float(pct_value):.0f}% severity percentile"
+
+    if not pd.isna(min_score) and not pd.isna(max_score):
+        text += f" · observed range {float(min_score):.2f}–{float(max_score):.2f}"
+
+    return text
 
 METRIC_TOOLTIPS = {
     "Sites in view": (
@@ -316,6 +413,26 @@ PLOTLY_LABELS = {
     "sentiment": "Sentiment",
     "sentiment_display": "Sentiment",
     "site_topic": "Site · Topic",
+
+    "view_priority_rank_label": "Rank in Current View",
+    "view_priority_severity_percentile": "Severity Percentile in Current View",
+    "view_priority_min": "Priority Score Min in Current View",
+    "view_priority_max": "Priority Score Max in Current View",
+
+    "site_priority_rank_label": "Site Priority Rank",
+    "site_priority_severity_percentile": "Site Severity Percentile",
+    "site_priority_min": "Site Priority Min",
+    "site_priority_max": "Site Priority Max",
+
+    "topic_priority_rank_label": "Topic Priority Rank",
+    "topic_priority_severity_percentile": "Topic Severity Percentile",
+    "topic_priority_min": "Topic Priority Min",
+    "topic_priority_max": "Topic Priority Max",
+
+    "topic_view_priority_rank_label": "Rank Within Selected Topic",
+    "topic_view_priority_severity_percentile": "Severity Percentile Within Selected Topic",
+    "topic_view_priority_min": "Priority Min Within Selected Topic",
+    "topic_view_priority_max": "Priority Max Within Selected Topic",
 }
 
 
@@ -988,6 +1105,12 @@ with tab_overview:
         filtered_site_topic["total_topic_reviews"] >= min_mentions
     ].copy()
 
+    filtered_site_topic = add_empirical_priority_context(
+    filtered_site_topic,
+    score_col="priority_score",
+    prefix="view_priority",
+    )
+
     total_sites = filtered_site_topic["site_name_en"].nunique()
     total_topics = filtered_site_topic["topic_id"].nunique()
 
@@ -1142,15 +1265,18 @@ with tab_overview:
             y="site_topic",
             orientation="h",
             hover_data={
-    "negative": ":,d",
-    "neutral": ":,d",
-    "positive": ":,d",
-    "total_topic_reviews": ":,d",
-    "negative_rate": ":.1%",
-    "positive_rate": ":.1%",
-    "net_sentiment_score": ":.2f",
-    "priority_score": ":.2f",
-},
+            "negative": ":,d",
+            "neutral": ":,d",
+            "positive": ":,d",
+            "total_topic_reviews": ":,d",
+            "negative_rate": ":.1%",
+            "net_sentiment_score": ":.2f",
+            "priority_score": ":.2f",
+            "view_priority_rank_label": True,
+            "view_priority_severity_percentile": ":.0%",
+            "view_priority_min": ":.2f",
+            "view_priority_max": ":.2f",
+        },
             labels=PLOTLY_LABELS,
             title = "",
         )
@@ -1261,7 +1387,11 @@ with tab_sites:
             metric_card("Net sentiment", f"{site_net:.2f}", "Positive minus negative share")
 
         with c4:
-            metric_card("Priority score", f"{site_priority:.2f}", "Operational triage score")
+            metric_card(
+                "Priority score",
+                f"{site_priority:.2f}",
+                priority_context_text(site_row, "site_priority"),
+            )
 
     if site_topic_detail.empty:
         st.info("No topic data for this site.")
@@ -1358,6 +1488,12 @@ with tab_topics:
         site_topic_df["topic_label_en"].eq(selected_topic_for_analysis)
     ].copy()
 
+    topic_site_detail = add_empirical_priority_context(
+    topic_site_detail,
+    score_col="priority_score",
+    prefix="topic_view_priority",
+    )
+
     topic_site_detail = topic_site_detail.sort_values(
         ["priority_score", "negative", "total_topic_reviews"],
         ascending=[False, False, False],
@@ -1397,7 +1533,7 @@ with tab_topics:
             metric_card(
                 "Priority score",
                 f"{float(topic_summary_row.get('priority_score', 0)):.2f}",
-                "Topic-level triage",
+                priority_context_text(topic_summary_row, "topic_priority", "Topic-level triage"),
             )
 
     if topic_site_detail.empty:
@@ -1416,15 +1552,18 @@ with tab_topics:
             y="site_name_en",
             orientation="h",
             hover_data={
-    "negative": ":,d",
-    "neutral": ":,d",
-    "positive": ":,d",
-    "total_topic_reviews": ":,d",
-    "negative_rate": ":.1%",
-    "positive_rate": ":.1%",
-    "net_sentiment_score": ":.2f",
-    "priority_score": ":.2f",
-},
+                "negative": ":,d",
+                "neutral": ":,d",
+                "positive": ":,d",
+                "total_topic_reviews": ":,d",
+                "negative_rate": ":.1%",
+                "net_sentiment_score": ":.2f",
+                "priority_score": ":.2f",
+                "topic_view_priority_rank_label": True,
+                "topic_view_priority_severity_percentile": ":.0%",
+                "topic_view_priority_min": ":.2f",
+                "topic_view_priority_max": ":.2f",
+            },
             labels=PLOTLY_LABELS,
            title = "",
         )
