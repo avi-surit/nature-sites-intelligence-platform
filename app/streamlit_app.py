@@ -308,10 +308,10 @@ def priority_context_text(row, prefix: str, fallback: str = "Operational triage 
     if pd.isna(rank) or pd.isna(scope_n) or pd.isna(pct_value):
         return fallback
 
-    text = f"Rank {int(rank)}/{int(scope_n)} · {100 * float(pct_value):.0f}% severity percentile"
+    text = f"Rank {int(rank)}/{int(scope_n)} \n{100 * float(pct_value):.0f}% severity percentile\n"
 
     if not pd.isna(min_score) and not pd.isna(max_score):
-        text += f" · observed range {float(min_score):.2f}–{float(max_score):.2f}"
+        text += f"observed range {float(min_score):.2f}–{float(max_score):.2f}"
 
     return text
 
