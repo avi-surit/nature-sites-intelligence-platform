@@ -75,7 +75,7 @@ Represents the share of negative sentiment mentions within a selected site/topic
 
 ### Net Sentiment Score
 
-$$\frac{positive - \text{negative}}{\text{negative} + \text{neutral} + \text{positive}}$$
+$$\frac{\text{positive} - \text{negative}}{\text{negative} + \text{neutral} + \text{positive}}$$
 
 Range: -1 to 1.
 Higher values indicate more positive sentiment concentration. Lower values indicate more negative concentration.
