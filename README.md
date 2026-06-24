@@ -148,15 +148,12 @@ Representative excerpts are included only to illustrate aggregate patterns and d
 
 ### Negative Share
 
-```text
-negative / (negative + neutral + positive)
-```
+$$\frac{negative}{negative + neutral + positive}$$
 
 ### Net Sentiment Score
 
-```text
-(positive - negative) / (negative + neutral + positive)
-```
+$$\frac{(positive - negative)}{(negative + neutral + positive)}$$
+
 
 Range: `-1` to `1`.
 
