@@ -148,20 +148,18 @@ Representative excerpts are included only to illustrate aggregate patterns and d
 
 ### Negative Share
 
-$$\frac{negative}{negative + neutral + positive}$$
+$$\frac{\text{negative}}{\text{negative + neutral + positive}}$$
 
 ### Net Sentiment Score
 
-$$\frac{(positive - negative)}{(negative + neutral + positive)}$$
+$$\frac{\text{positive - negative}}{\text{negative + neutral + positive}}$$
 
 
-Range: `-1` to `1`.
+Range: $-1$ to $1$.
 
 ### Priority Score
 
-```text
-log(1 + negative) × negative_share
-```
+$$\log(\text{1 + negative}) × \text{negative_share}$$
 
 This is an operational triage metric that combines negative-feedback volume with negative concentration. It is not presented as statistical ground truth.
 
