@@ -1,0 +1,15 @@
+{
+  "project_name": "Nature Sites Intelligence Platform",
+  "public_data_version": "public_v1",
+  "source_language": "Hebrew",
+  "dashboard_language": "English",
+  "raw_reviews_included": false,
+  "raw_review_text_policy": "Raw review text and segment text are excluded from public files. The public dashboard uses aggregated statistics only.",
+  "historical_pipeline": "Batch LLM segmentation over Hebrew reviews, followed by Hebrew sentiment classification at segment level.",
+  "try_it_yourself_note": "The live demo path may use a multilingual/English-compatible model and can differ from the Hebrew historical pipeline. Results may not exactly match Hebrew production behavior.",
+  "n_sites": 71,
+  "n_topics": 25,
+  "site_topic_rows": 582,
+  "site_rows": 71,
+  "topic_rows": 25
+}

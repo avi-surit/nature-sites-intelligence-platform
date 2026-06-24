@@ -1,0 +1,49 @@
+# ============================================================
+# Deployment allowlist
+# ============================================================
+# Ignore everything by default. Only the public deployment files
+# explicitly listed below may be tracked.
+# When adding a new public file later, add an explicit exception here.
+
+/*
+
+# Root files
+!/.gitignore
+!/README.md
+!/requirements.txt
+
+# Public application code
+!/app/
+/app/*
+!/app/streamlit_app.py
+
+!/agent/
+/agent/*
+!/agent/__init__.py
+!/agent/agent_tools.py
+!/agent/site_intelligence_agent.py
+
+# Public deployment data only
+!/data/
+/data/*
+!/data/public/
+/data/public/*
+!/data/public/app_filters.json
+!/data/public/app_metadata.json
+!/data/public/nip_agent_public.db
+!/data/public/site_name_translation_table.csv
+!/data/public/site_sentiment_stats_public.parquet
+!/data/public/site_topic_sentiment_stats_public.parquet
+!/data/public/topic_sentiment_stats_public.parquet
+!/data/public/topic_translation_table.csv
+
+# Reproducibility script
+!/scripts/
+/scripts/*
+!/scripts/build_public_agent_db.py
+
+# Safe Streamlit example only.
+# The real .streamlit/secrets.toml remains ignored.
+!/.streamlit/
+/.streamlit/*
+!/.streamlit/secrets.toml.example

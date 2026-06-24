@@ -1,0 +1,420 @@
+{
+  "sites": [
+    {
+      "site_name_en": "Achziv",
+      "site_name_he": "אכזיב"
+    },
+    {
+      "site_name_en": "Amud Stream",
+      "site_name_he": "נחל עמוד"
+    },
+    {
+      "site_name_en": "Apollonia",
+      "site_name_he": "אפולוניה"
+    },
+    {
+      "site_name_en": "Arbel",
+      "site_name_he": "ארבל"
+    },
+    {
+      "site_name_en": "Avdat",
+      "site_name_he": "עבדת"
+    },
+    {
+      "site_name_en": "Ayun Stream (HaTanur)",
+      "site_name_he": "נחל עיון (התנור)"
+    },
+    {
+      "site_name_en": "Baptism Site - Qasr al-Yahud",
+      "site_name_he": "אתר הטבילה - קאסר אל יהוד"
+    },
+    {
+      "site_name_en": "Bar'am",
+      "site_name_he": "ברעם"
+    },
+    {
+      "site_name_en": "Beit Alfa",
+      "site_name_he": "בית אלפא"
+    },
+    {
+      "site_name_en": "Beit Guvrin",
+      "site_name_he": "בית גוברין"
+    },
+    {
+      "site_name_en": "Beit She'an",
+      "site_name_he": "בית שאן"
+    },
+    {
+      "site_name_en": "Beit She'arim",
+      "site_name_he": "בית שערים"
+    },
+    {
+      "site_name_en": "Caesarea",
+      "site_name_he": "קיסריה"
+    },
+    {
+      "site_name_en": "Carmel Hai-Bar",
+      "site_name_he": "חי בר כרמל"
+    },
+    {
+      "site_name_en": "Castel",
+      "site_name_he": "קסטל"
+    },
+    {
+      "site_name_en": "Coral Beach Nature Reserve",
+      "site_name_he": "שמורת חוף האלמוגים"
+    },
+    {
+      "site_name_en": "Ein Afek",
+      "site_name_he": "עין אפק"
+    },
+    {
+      "site_name_en": "Ein Avdat",
+      "site_name_he": "עין עבדת"
+    },
+    {
+      "site_name_en": "Ein Gedi",
+      "site_name_he": "עין גדי"
+    },
+    {
+      "site_name_en": "Ein Gedi - Arugot Stream",
+      "site_name_he": "עין גדי - נחל ערוגות"
+    },
+    {
+      "site_name_en": "Ein Gedi - David Stream",
+      "site_name_he": "עין גדי - נחל דוד"
+    },
+    {
+      "site_name_en": "Ein Hanya",
+      "site_name_he": "עין חניה"
+    },
+    {
+      "site_name_en": "Ein Hemed",
+      "site_name_he": "עין חמד"
+    },
+    {
+      "site_name_en": "Ein Mabua",
+      "site_name_he": "עין מבוע"
+    },
+    {
+      "site_name_en": "Ein Prat",
+      "site_name_he": "עין פרת"
+    },
+    {
+      "site_name_en": "Einot Tzukim",
+      "site_name_he": "עיינות צוקים"
+    },
+    {
+      "site_name_en": "Eshkol (HaBesor)",
+      "site_name_he": "אשכול (הבשור)"
+    },
+    {
+      "site_name_en": "Gamla",
+      "site_name_he": "גמלא"
+    },
+    {
+      "site_name_en": "Gan HaShlosha (Sakhne)",
+      "site_name_he": "גן השלושה (סחנה)"
+    },
+    {
+      "site_name_en": "Good Samaritan Inn",
+      "site_name_he": "אכסניית השומרוני הטוב"
+    },
+    {
+      "site_name_en": "Habonim Beach Nature Reserve",
+      "site_name_he": "שמורת חוף הבונים"
+    },
+    {
+      "site_name_en": "Hai Ramon",
+      "site_name_he": "חי רמון"
+    },
+    {
+      "site_name_en": "Hamat Tiberias",
+      "site_name_he": "חמת טבריה"
+    },
+    {
+      "site_name_en": "Hermon Stream (Banias)",
+      "site_name_he": "נחל חרמון (בניאס)"
+    },
+    {
+      "site_name_en": "Herodium",
+      "site_name_he": "הרודיון"
+    },
+    {
+      "site_name_en": "Hula",
+      "site_name_he": "החולה"
+    },
+    {
+      "site_name_en": "Hurshat Tal",
+      "site_name_he": "חורשת טל"
+    },
+    {
+      "site_name_en": "Kokhav HaYarden",
+      "site_name_he": "כוכב הירדן"
+    },
+    {
+      "site_name_en": "Korazim",
+      "site_name_he": "כורזים"
+    },
+    {
+      "site_name_en": "Kursi",
+      "site_name_he": "כורסי"
+    },
+    {
+      "site_name_en": "Ma'ayan Harod",
+      "site_name_he": "מעיין חרוד"
+    },
+    {
+      "site_name_en": "Majrase",
+      "site_name_he": "מג'רסה"
+    },
+    {
+      "site_name_en": "Mamshit",
+      "site_name_he": "ממשית"
+    },
+    {
+      "site_name_en": "Masada",
+      "site_name_he": "מצדה"
+    },
+    {
+      "site_name_en": "Meshushim Stream",
+      "site_name_he": "נחל המשושים"
+    },
+    {
+      "site_name_en": "Migdal Tzedek",
+      "site_name_he": "מגדל צדק"
+    },
+    {
+      "site_name_en": "Mount Gerizim",
+      "site_name_he": "הר גריזים"
+    },
+    {
+      "site_name_en": "Nabi Samuel",
+      "site_name_he": "נבי סמואל"
+    },
+    {
+      "site_name_en": "Nahal Me'arot",
+      "site_name_he": "נחל מערות"
+    },
+    {
+      "site_name_en": "Nimrod Fortress",
+      "site_name_he": "מבצר נמרוד"
+    },
+    {
+      "site_name_en": "Palmachim",
+      "site_name_he": "פלמחים"
+    },
+    {
+      "site_name_en": "Qumran",
+      "site_name_he": "קומראן"
+    },
+    {
+      "site_name_en": "Ramon Crater Visitor Center",
+      "site_name_he": "מרכז מבקרים מכתש רמון"
+    },
+    {
+      "site_name_en": "Sha'ar HaGai Khan",
+      "site_name_he": "חאן שער הגיא"
+    },
+    {
+      "site_name_en": "Snir Stream (Hasbani)",
+      "site_name_he": "נחל שניר (חצבאני)"
+    },
+    {
+      "site_name_en": "Stalactite Cave",
+      "site_name_he": "מערת הנטיפים"
+    },
+    {
+      "site_name_en": "Taninim Stream",
+      "site_name_he": "נחל תנינים"
+    },
+    {
+      "site_name_en": "Tel Arad",
+      "site_name_he": "תל ערד"
+    },
+    {
+      "site_name_en": "Tel Ashkelon",
+      "site_name_he": "תל אשקלון"
+    },
+    {
+      "site_name_en": "Tel Be'er Sheva",
+      "site_name_he": "תל באר שבע"
+    },
+    {
+      "site_name_en": "Tel Dan",
+      "site_name_he": "תל דן"
+    },
+    {
+      "site_name_en": "Tel Dor",
+      "site_name_he": "תל דור"
+    },
+    {
+      "site_name_en": "Tel Hazor",
+      "site_name_he": "תל חצור"
+    },
+    {
+      "site_name_en": "Tel Hebron",
+      "site_name_he": "תל חברון"
+    },
+    {
+      "site_name_en": "Tel Megiddo",
+      "site_name_he": "תל מגידו"
+    },
+    {
+      "site_name_en": "Tzipori",
+      "site_name_he": "ציפורי"
+    },
+    {
+      "site_name_en": "Yarkon - Tel Afek",
+      "site_name_he": "ירקון - תל אפק"
+    },
+    {
+      "site_name_en": "Yarkon - Yarkon Sources",
+      "site_name_he": "ירקון - מקורות הירקון"
+    },
+    {
+      "site_name_en": "Yehiam Fortress",
+      "site_name_he": "מבצר יחיעם"
+    },
+    {
+      "site_name_en": "Yehudiya",
+      "site_name_he": "יהודיה"
+    },
+    {
+      "site_name_en": "Yotvata Hai-Bar",
+      "site_name_he": "חי בר יטבתה"
+    }
+  ],
+  "topics": [
+    {
+      "topic_id": "accessibility",
+      "topic_label_en": "Accessibility",
+      "topic_group_en": "Accessibility"
+    },
+    {
+      "topic_id": "activities_and_attractions",
+      "topic_label_en": "Activities & Attractions",
+      "topic_group_en": "Visitor Experience"
+    },
+    {
+      "topic_id": "animals",
+      "topic_label_en": "Animals",
+      "topic_group_en": "Nature & Wildlife"
+    },
+    {
+      "topic_id": "booking_and_entry",
+      "topic_label_en": "Booking & Entry",
+      "topic_group_en": "Operations"
+    },
+    {
+      "topic_id": "crowding",
+      "topic_label_en": "Crowding",
+      "topic_group_en": "Operations"
+    },
+    {
+      "topic_id": "hygiene_and_cleanliness",
+      "topic_label_en": "Hygiene & Cleanliness",
+      "topic_group_en": "Facilities"
+    },
+    {
+      "topic_id": "information",
+      "topic_label_en": "Information & Explanations",
+      "topic_group_en": "Visitor Guidance"
+    },
+    {
+      "topic_id": "infrastructure_and_maintenance",
+      "topic_label_en": "Infrastructure & Maintenance",
+      "topic_group_en": "Facilities"
+    },
+    {
+      "topic_id": "insects",
+      "topic_label_en": "Insects & Pests",
+      "topic_group_en": "Comfort"
+    },
+    {
+      "topic_id": "modesty_and_religion",
+      "topic_label_en": "Modesty & Religion",
+      "topic_group_en": "Visitor Needs"
+    },
+    {
+      "topic_id": "noise",
+      "topic_label_en": "Noise",
+      "topic_group_en": "Comfort"
+    },
+    {
+      "topic_id": "opening_hours",
+      "topic_label_en": "Opening Hours",
+      "topic_group_en": "Operations"
+    },
+    {
+      "topic_id": "operational_efficiency",
+      "topic_label_en": "Operational Efficiency",
+      "topic_group_en": "Operations"
+    },
+    {
+      "topic_id": "other",
+      "topic_label_en": "Other / General Feedback",
+      "topic_group_en": "General"
+    },
+    {
+      "topic_id": "parking",
+      "topic_label_en": "Parking",
+      "topic_group_en": "Access"
+    },
+    {
+      "topic_id": "price_value",
+      "topic_label_en": "Price & Value",
+      "topic_group_en": "Commercial Services"
+    },
+    {
+      "topic_id": "shade",
+      "topic_label_en": "Shade",
+      "topic_group_en": "Comfort"
+    },
+    {
+      "topic_id": "shop_and_food",
+      "topic_label_en": "Shop & Food",
+      "topic_group_en": "Commercial Services"
+    },
+    {
+      "topic_id": "showers_and_changing_rooms",
+      "topic_label_en": "Showers & Changing Rooms",
+      "topic_group_en": "Facilities"
+    },
+    {
+      "topic_id": "signage_and_navigation",
+      "topic_label_en": "Signage & Navigation",
+      "topic_group_en": "Visitor Guidance"
+    },
+    {
+      "topic_id": "staff_service",
+      "topic_label_en": "Staff & Service",
+      "topic_group_en": "Service"
+    },
+    {
+      "topic_id": "supervision_and_enforcement",
+      "topic_label_en": "Supervision & Enforcement",
+      "topic_group_en": "Safety & Conduct"
+    },
+    {
+      "topic_id": "visitor_amenities",
+      "topic_label_en": "Visitor Amenities",
+      "topic_group_en": "Facilities"
+    },
+    {
+      "topic_id": "water",
+      "topic_label_en": "Water",
+      "topic_group_en": "Facilities"
+    },
+    {
+      "topic_id": "weather_and_temperature",
+      "topic_label_en": "Weather & Temperature",
+      "topic_group_en": "Comfort"
+    }
+  ],
+  "sentiments": [
+    "negative",
+    "neutral",
+    "positive"
+  ]
+}

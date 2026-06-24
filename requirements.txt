@@ -1,0 +1,7 @@
+streamlit
+starlette
+pandas
+pyarrow
+plotly
+openai
+python-dotenv
