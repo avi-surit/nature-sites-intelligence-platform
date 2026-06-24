@@ -159,7 +159,7 @@ Range: $-1$ to $1$.
 
 ### Priority Score
 
-$$\log(\text{1 + negative}) × \text{negative_share}$$
+$$\log(\text{1 + negative}) \times \text{negative_share}$$
 
 This is an operational triage metric that combines negative-feedback volume with negative concentration. It is not presented as statistical ground truth.
 
